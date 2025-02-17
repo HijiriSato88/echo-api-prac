@@ -10,11 +10,7 @@ services:
       - "8080:8080"
     depends_on:
       - db
-    environment:
-      - MYSQL_USER=${MYSQL_USER}
-      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
-      - MYSQL_DATABASE=${MYSQL_DATABASE}
-      - DB_HOST=${DB_HOST}
+    command: /bin/bash -c "go install github.com/air-verse/air@latest && /go/bin/air"
     networks:
       - app-network
 
@@ -27,14 +23,13 @@ services:
       - MYSQL_DATABASE=${MYSQL_DATABASE}
       - MYSQL_USER=${MYSQL_USER}
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
-      - DB_HOST=${DB_HOST}
     volumes:
-      - db-vol:/var/lib/mysql
+      - db-data:/var/lib/mysql
     networks:
       - app-network
 
 volumes:
-  db-vol:
+  db-data:
 
 networks:
   app-network:

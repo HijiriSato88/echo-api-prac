@@ -9,5 +9,5 @@ type User struct {
 	Email 		string `gorm:"not null"`
 	Phonenumber string `gorm:"not null"`
 	Age 		uint `gorm:"not null"`
-	Is_adult 	bool `gorm:"not null;default:false"`
+	Is_adult 	bool `gorm:"not null"`
 }
