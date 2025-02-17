@@ -1,4 +1,4 @@
-module Echo-CRUD-demo
+module gin_api_prac
 
 go 1.23.5
 

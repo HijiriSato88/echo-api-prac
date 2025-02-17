@@ -1,8 +1,8 @@
 package main
 
 import (
-	"Echo-CRUD-demo/infra"
-	"Echo-CRUD-demo/models"
+	"gin_api_prac/infra"
+	"gin_api_prac/models"
 )
 
 func main() {
