@@ -7,6 +7,7 @@ import (
 
 type UUserRepository interface {
 	Create(newUser models.User) (*models.User, error)
+	FindAll() (*[]models.User, error)
 }
 
 type UserRepository struct {
@@ -23,4 +24,13 @@ func (r *UserRepository) Create(newUser models.User) (*models.User, error) {
 		return nil, result.Error
 	}
 	return &newUser, nil
+}
+
+func (c *UserRepository) FindAll() (*[]models.User, error) {
+	var users []models.User
+	result := c.db.Find(&users)
+	if result.Error != nil {
+		return nil, result.Error
+	}
+	return &users, nil
 }

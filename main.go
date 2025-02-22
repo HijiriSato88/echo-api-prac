@@ -19,5 +19,6 @@ func main() {
 
 	e := echo.New()
 	e.POST("/users", userController.Create)
+	e.GET("users", userController.FindAll)
 	e.Logger.Fatal(e.Start(":8080"))
 }

@@ -8,6 +8,7 @@ import (
 
 type UUserService interface {
 	Create(createUserInput dto.CreateUserInput) (*models.User, error)
+	FindAll() (*[]models.User, error)
 }
 
 type UserService struct {
@@ -31,4 +32,8 @@ func (s *UserService) Create(createUserInput dto.CreateUserInput) (*models.User,
 		Is_adult:    		isAdult,
 	}
 	return s.repository.Create(newUser)
+}
+
+func (s *UserService) FindAll() (*[]models.User, error) {
+	return s.repository.FindAll()
 }

@@ -10,6 +10,7 @@ import (
 
 type UUserController interface {
 	Create(ctx echo.Context) error
+	FindAll(ctx echo.Context) error
 }
 
 type UserController struct {
@@ -32,4 +33,12 @@ func (c *UserController) Create(ctx echo.Context) error {
 	}
 
 	return ctx.JSON(http.StatusCreated, map[string]interface{}{"data": newUser})
+}
+
+func (c UserController) FindAll(ctx echo.Context) error {
+	users, err := c.service.FindAll()
+	if err != nil {
+		return ctx.JSON(http.StatusInternalServerError, map[string]string{"error": err.Error()})
+	}
+	return ctx.JSON(http.StatusCreated, map[string]interface{}{"data": users})
 }
