@@ -1,15 +1,15 @@
 package controllers
 
 import (
-	"gin_api_prac/dto"
-	"gin_api_prac/services"
+	"echo_api_prac/dto"
+	"echo_api_prac/services"
 	"net/http"
-	
-	"github.com/gin-gonic/gin"
+
+	"github.com/labstack/echo/v4"
 )
 
 type UUserController interface {
-	Create(ctx *gin.Context)
+	Create(ctx echo.Context) error
 }
 
 type UserController struct {
@@ -20,18 +20,16 @@ func NewUserController(service services.UUserService) UUserController {
 	return &UserController{service: service}
 }
 
-func (c *UserController) Create(ctx *gin.Context) {
+func (c *UserController) Create(ctx echo.Context) error {
 	var input dto.CreateUserInput
-	if err := ctx.ShouldBindJSON(&input); err != nil {
-		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
+	if err := ctx.Bind(&input); err != nil {
+		return ctx.JSON(http.StatusBadRequest, map[string]string{"error": err.Error()})
 	}
 
 	newUser, err := c.service.Create(input)
 	if err != nil {
-		ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-		return
+		return ctx.JSON(http.StatusInternalServerError, map[string]string{"error": err.Error()})
 	}
 
-	ctx.JSON(http.StatusCreated, gin.H{"data": newUser})
+	return ctx.JSON(http.StatusCreated, map[string]interface{}{"data": newUser})
 }

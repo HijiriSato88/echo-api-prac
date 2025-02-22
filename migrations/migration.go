@@ -1,8 +1,8 @@
 package main
 
 import (
-	"gin_api_prac/infra"
-	"gin_api_prac/models"
+	"echo_api_prac/infra"
+	"echo_api_prac/models"
 )
 
 func main() {

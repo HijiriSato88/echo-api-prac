@@ -2,7 +2,7 @@ package repositories
 
 import (
 	"gorm.io/gorm"
-	"gin_api_prac/models"
+	"echo_api_prac/models"
 )
 
 type UUserRepository interface {

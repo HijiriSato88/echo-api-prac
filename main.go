@@ -1,12 +1,12 @@
 package main
 
 import (
-	"gin_api_prac/controllers"
-	"gin_api_prac/infra"
-	"gin_api_prac/repositories"
-	"gin_api_prac/services"
+	"echo_api_prac/controllers"
+	"echo_api_prac/infra"
+	"echo_api_prac/repositories"
+	"echo_api_prac/services"
 
-	"github.com/gin-gonic/gin"
+	"github.com/labstack/echo/v4"
 )
 
 func main() {
@@ -17,7 +17,7 @@ func main() {
 	userService := services.NewUserService(userRepository)
 	userController := controllers.NewUserController(userService)
 
-	r := gin.Default()
-	r.POST("/users", userController.Create)
-	r.Run(":8080")
+	e := echo.New()
+	e.POST("/users", userController.Create)
+	e.Logger.Fatal(e.Start(":8080"))
 }

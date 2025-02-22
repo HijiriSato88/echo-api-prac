@@ -1,9 +1,9 @@
 package services
 
 import (
-	"gin_api_prac/dto"
-	"gin_api_prac/models"
-	"gin_api_prac/repositories"
+	"echo_api_prac/dto"
+	"echo_api_prac/models"
+	"echo_api_prac/repositories"
 )
 
 type UUserService interface {
