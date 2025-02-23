@@ -23,7 +23,7 @@ func NewUserController(service services.UUserService) UUserController {
 
 func (c *UserController) Create(ctx echo.Context) error {
 	var input dto.CreateUserInput
-	if err := ctx.Bind(&input); err != nil {
+	if err := ctx.Bind(&input); err != nil { // Bind：リクエストボディのデータをuser_dtoの構造体に詰める
 		return ctx.JSON(http.StatusBadRequest, map[string]string{"error": err.Error()})
 	}
 
