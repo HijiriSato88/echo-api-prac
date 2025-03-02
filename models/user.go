@@ -1,9 +1,11 @@
 package models
 
-import "gorm.io/gorm"
+import "time"
 
 type User struct {
-    gorm.Model
-    Name  string `gorm:"not null" validate:"required,min=2,max=100"`
-    Email string `gorm:"unique;not null" validate:"required,email"`
+    ID           uint       `gorm:"primary_key"`
+    Name         string
+    Email        string     `gorm:"type:varchar(100);unique"`
+    CreatedAt    time.Time
+    UpdatedAt    time.Time
 }
