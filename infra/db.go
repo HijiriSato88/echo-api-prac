@@ -9,7 +9,9 @@ import (
 	"gorm.io/gorm"
 )
 
-func SetupDB() *gorm.DB {
+var DB *gorm.DB
+
+func SetupDB() {
 	dbUser := os.Getenv("MYSQL_USER")
 	dbPassword := os.Getenv("MYSQL_PASSWORD")
 	dbName := os.Getenv("MYSQL_DATABASE")
@@ -25,5 +27,5 @@ func SetupDB() *gorm.DB {
 
 	log.Println("Database connection successful!")
 
-	return db
+	DB = db
 }

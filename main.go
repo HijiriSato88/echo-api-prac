@@ -1,24 +1,19 @@
 package main
 
 import (
-	"echo_api_prac/controllers"
 	"echo_api_prac/infra"
-	"echo_api_prac/repositories"
-	"echo_api_prac/services"
+	"echo_api_prac/routes"
 
 	"github.com/labstack/echo/v4"
 )
 
 func main() {
 	infra.Initialize()
-	db := infra.SetupDB()
-
-	userRepository := repositories.NewUserRepository(db)
-	userService := services.NewUserService(userRepository)
-	userController := controllers.NewUserController(userService)
-
+	infra.SetupDB()
+	
 	e := echo.New()
-	e.POST("/users", userController.Create)
-	e.GET("users", userController.FindAll)
-	e.Logger.Fatal(e.Start(":8080"))
+
+	routes.SetupRoutes(e)
+
+    e.Logger.Fatal(e.Start(":8080"))
 }

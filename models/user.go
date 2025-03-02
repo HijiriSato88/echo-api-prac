@@ -3,11 +3,7 @@ package models
 import "gorm.io/gorm"
 
 type User struct {
-	gorm.Model
-	Firstname 	string `gorm:"not null"`
-	Lastname 	string `gorm:"not null"`
-	Email 		string `gorm:"not null"`
-	Phonenumber string `gorm:"not null"`
-	Age 		uint `gorm:"not null"`
-	Is_adult 	bool `gorm:"not null"`
+    gorm.Model
+    Name  string `gorm:"not null" validate:"required,min=2,max=100"`
+    Email string `gorm:"unique;not null" validate:"required,email"`
 }
