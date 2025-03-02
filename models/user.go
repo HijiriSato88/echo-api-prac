@@ -3,9 +3,11 @@ package models
 import "time"
 
 type User struct {
-    ID           uint       `gorm:"primary_key"`
-    Name         string
-    Email        string     `gorm:"type:varchar(100);unique"`
-    CreatedAt    time.Time
-    UpdatedAt    time.Time
+    ID        uint      `gorm:"primaryKey"`
+    Name      string    `gorm:"size:100;not null"`
+    Email     string    `gorm:"size:255;not null;unique"`
+    CreatedAt time.Time
+    UpdatedAt time.Time
+
+    Posts     []Post    `gorm:"foreignKey:UserID"`
 }
