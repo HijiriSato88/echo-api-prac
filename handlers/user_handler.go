@@ -4,12 +4,10 @@ import (
     "echo_api_prac/services"
     "net/http"
     "strconv"
-    "github.com/go-playground/validator/v10"
+    "echo_api_prac/validation"
 
     "github.com/labstack/echo/v4"
 )
-
-var validate = validator.New()
 
 type CreateUserRequest struct {
     Name  string `json:"name" validate:"required,min=2,max=100"`
@@ -23,7 +21,7 @@ func CreateUser(c echo.Context) error {
         return c.JSON(http.StatusBadRequest, map[string]string{"error": "Invalid request"})
     }
 
-    if err := validate.Struct(req); err != nil {
+    if err :=validation.Validator.Struct(req); err != nil {
         return c.JSON(http.StatusBadRequest, map[string]string{"error": err.Error()})
     }
 

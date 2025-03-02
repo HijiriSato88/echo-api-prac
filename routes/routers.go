@@ -10,4 +10,5 @@ func SetupRoutes(e *echo.Echo) {
     e.POST("/users", handlers.CreateUser)
     e.GET("/users", handlers.GetUsers)
     e.GET("/users/:id", handlers.GetUser)
+    e.POST("/posts",handlers.CreatePost)
 }
