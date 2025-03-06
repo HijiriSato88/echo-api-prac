@@ -12,8 +12,8 @@ services:
       - db
       - redis
     environment:
-      - REDIS_HOST=redis
-      - REDIS_PORT=6379
+      - REDIS_HOST=${REDIS_HOST}
+      - REDIS_PORT=${REDIS_PORT}
     command: /bin/bash -c "go install github.com/air-verse/air@latest && /go/bin/air"
     networks:
       - app-network
