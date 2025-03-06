@@ -8,18 +8,26 @@ import (
 	"echo_api_prac/models"
 )
 
+// 処理速度比較するための処理もある
 func GetUserByID(id uint) (*models.User, error) {
 	cacheKey := fmt.Sprintf("user:%d", id)
 	var user models.User
 
-	// キャッシュから取得
+	// キャッシュから取得（時間計測）
+	start := time.Now()
 	err := infra.GetCache(cacheKey, &user)
+	elapsedCache := time.Since(start) // キャッシュ取得時間
+
 	if err == nil {
-		return &user, nil // キャッシュヒット時
+		fmt.Printf("Cache hit: %v\n", elapsedCache)
+		return &user, nil
 	}
 
-	// キャッシュがない場合、DBから取得
+	// DBから取得（時間計測）
+	start = time.Now()
 	err = infra.DB.First(&user, id).Error
+	elapsedDB := time.Since(start) // DB取得時間
+
 	if err != nil {
 		return nil, err
 	}
@@ -27,8 +35,10 @@ func GetUserByID(id uint) (*models.User, error) {
 	// キャッシュに保存（TTL: 10分）
 	_ = infra.SetCache(cacheKey, user, 10*time.Minute)
 
+	fmt.Printf("Cache miss. DB fetch time: %v\n", elapsedDB)
 	return &user, nil
 }
+
 
 func GetAllUsers() ([]models.User, error) {
 	cacheKey := "users"
