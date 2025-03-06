@@ -10,7 +10,8 @@ import (
 func main() {
 	infra.Initialize()
 	infra.SetupDB()
-	infra.InitRedis() // Redis 初期化
+	infra.InitRedis()
+	infra.InitCache()
 
 	e := echo.New()
 
