@@ -10,6 +10,10 @@ services:
       - "8080:8080"
     depends_on:
       - db
+      - redis
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
     command: /bin/bash -c "go install github.com/air-verse/air@latest && /go/bin/air"
     networks:
       - app-network
@@ -28,8 +32,19 @@ services:
     networks:
       - app-network
 
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    networks:
+      - app-network
+    volumes:
+      - redis-data:/data
+    command: ["redis-server", "--appendonly", "yes"]
+
 volumes:
   db-data:
+  redis-data:
 
 networks:
   app-network:

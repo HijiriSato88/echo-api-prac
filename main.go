@@ -10,7 +10,8 @@ import (
 func main() {
 	infra.Initialize()
 	infra.SetupDB()
-	
+	infra.InitRedis() // Redis 初期化
+
 	e := echo.New()
 
 	routes.SetupRoutes(e)
